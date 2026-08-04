@@ -1,0 +1,768 @@
+{
+  "ports": {
+    "20": {
+      "service": "FTP-DATA",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "FTP数据传输端口",
+      "hazard": "明文传输文件数据，可能被嗅探截获"
+    },
+    "21": {
+      "service": "FTP",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "文件传输协议控制端口",
+      "hazard": "明文传输用户名密码，易被中间人攻击和暴力破解，可能存在匿名访问漏洞"
+    },
+    "22": {
+      "service": "SSH",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "安全Shell远程登录",
+      "hazard": "若使用弱密码或旧版本，可能被暴力破解"
+    },
+    "23": {
+      "service": "Telnet",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Telnet远程登录",
+      "hazard": "明文传输所有数据包括密码，极易被嗅探攻击，应禁用"
+    },
+    "25": {
+      "service": "SMTP",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "简单邮件传输协议",
+      "hazard": "可能被利用发送垃圾邮件或作为开放中继，存在邮件伪造风险"
+    },
+    "53": {
+      "service": "DNS",
+      "protocol": "udp",
+      "risk": "safe",
+      "description": "域名系统服务",
+      "hazard": "可能遭受DNS放大攻击或DNS劫持"
+    },
+    "69": {
+      "service": "TFTP",
+      "protocol": "udp",
+      "risk": "danger",
+      "description": "简单文件传输协议",
+      "hazard": "无认证机制，可被用于读取任意文件或上传恶意文件"
+    },
+    "79": {
+      "service": "Finger",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Finger用户信息查询",
+      "hazard": "泄露系统用户信息，可被用于社会工程学攻击"
+    },
+    "80": {
+      "service": "HTTP",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "Web服务HTTP端口",
+      "hazard": "若运行过时Web应用可能存在SQL注入、XSS等漏洞"
+    },
+    "110": {
+      "service": "POP3",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "邮局协议v3",
+      "hazard": "默认明文传输，可能被嗅探邮箱密码"
+    },
+    "111": {
+      "service": "RPC",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "SUN RPC远程调用",
+      "hazard": "曾被多种蠕虫利用，可能导致远程代码执行"
+    },
+    "113": {
+      "service": "IDENT",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "认证服务",
+      "hazard": "可能泄露用户身份信息"
+    },
+    "119": {
+      "service": "NNTP",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "网络新闻传输协议",
+      "hazard": "可能被用于洪水攻击"
+    },
+    "135": {
+      "service": "MS-RPC",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Windows RPC端点映射",
+      "hazard": "冲击波蠕虫利用端口，可导致远程代码执行，应通过防火墙限制"
+    },
+    "137": {
+      "service": "NetBIOS-NS",
+      "protocol": "udp",
+      "risk": "danger",
+      "description": "NetBIOS名称服务",
+      "hazard": "泄露主机名和域信息，可被用于网络侦察"
+    },
+    "138": {
+      "service": "NetBIOS-DGM",
+      "protocol": "udp",
+      "risk": "danger",
+      "description": "NetBIOS数据报服务",
+      "hazard": "可能泄露共享信息，被用于传播蠕虫"
+    },
+    "139": {
+      "service": "NetBIOS-SSN",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "NetBIOS会话服务",
+      "hazard": "SMBv1漏洞利用入口，永恒之蓝等蠕虫通过此端口传播"
+    },
+    "143": {
+      "service": "IMAP",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "互联网消息访问协议",
+      "hazard": "默认明文传输，可能被嗅探邮箱凭据"
+    },
+    "161": {
+      "service": "SNMP",
+      "protocol": "udp",
+      "risk": "danger",
+      "description": "简单网络管理协议",
+      "hazard": "若使用默认community字符串(public)，可泄露完整系统信息，甚至修改配置"
+    },
+    "162": {
+      "service": "SNMP-TRAP",
+      "protocol": "udp",
+      "risk": "warning",
+      "description": "SNMP陷阱",
+      "hazard": "可能泄露网络管理信息"
+    },
+    "389": {
+      "service": "LDAP",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "轻量目录访问协议",
+      "hazard": "默认未加密，可能泄露目录信息"
+    },
+    "443": {
+      "service": "HTTPS",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "加密Web服务",
+      "hazard": "通常安全，但需注意TLS版本和证书有效性"
+    },
+    "445": {
+      "service": "SMB",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Windows文件共享",
+      "hazard": "勒索病毒(WannaCry)主要传播通道，永恒之蓝(MS17-010)利用此端口，应限制外部访问"
+    },
+    "464": {
+      "service": "Kerberos",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Kerberos密码修改",
+      "hazard": "可能被用于密码猜测攻击"
+    },
+    "465": {
+      "service": "SMTPS",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "加密SMTP",
+      "hazard": ""
+    },
+    "512": {
+      "service": "rexec",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "远程执行",
+      "hazard": "无认证远程执行命令，极度危险"
+    },
+    "513": {
+      "service": "rlogin",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "远程登录",
+      "hazard": "基于信任的认证，可被IP欺骗绕过"
+    },
+    "514": {
+      "service": "syslog",
+      "protocol": "udp",
+      "risk": "warning",
+      "description": "系统日志",
+      "hazard": "可能被用于日志注入或伪造日志"
+    },
+    "515": {
+      "service": "LPD",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "打印服务",
+      "hazard": "可能被利用执行任意命令"
+    },
+    "520": {
+      "service": "RIP",
+      "protocol": "udp",
+      "risk": "danger",
+      "description": "路由信息协议",
+      "hazard": "可被伪造路由信息进行中间人攻击"
+    },
+    "587": {
+      "service": "SMTP-Submission",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "邮件提交端口",
+      "hazard": ""
+    },
+    "631": {
+      "service": "IPP",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "互联网打印协议",
+      "hazard": "CUPS漏洞可能被利用远程执行代码"
+    },
+    "636": {
+      "service": "LDAPS",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "加密LDAP",
+      "hazard": ""
+    },
+    "873": {
+      "service": "rsync",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "rsync文件同步",
+      "hazard": "若配置不当可未授权访问文件系统"
+    },
+    "990": {
+      "service": "FTPS",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "加密FTP",
+      "hazard": ""
+    },
+    "993": {
+      "service": "IMAPS",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "加密IMAP",
+      "hazard": ""
+    },
+    "995": {
+      "service": "POP3S",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "加密POP3",
+      "hazard": ""
+    },
+    "1080": {
+      "service": "SOCKS",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "SOCKS代理",
+      "hazard": "开放代理可被用于隐藏攻击来源或绕过访问控制"
+    },
+    "1099": {
+      "service": "RMI",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Java RMI",
+      "hazard": "可能被利用反序列化漏洞执行任意代码"
+    },
+    "1194": {
+      "service": "OpenVPN",
+      "protocol": "udp",
+      "risk": "safe",
+      "description": "OpenVPN",
+      "hazard": ""
+    },
+    "1433": {
+      "service": "MSSQL",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Microsoft SQL Server",
+      "hazard": "若使用弱口令(sa/空密码)，可被完全控制服务器，蠕虫利用入口"
+    },
+    "1434": {
+      "service": "MSSQL-Admin",
+      "protocol": "udp",
+      "risk": "danger",
+      "description": "MSSQL管理端口",
+      "hazard": "SQL Slammer蠕虫利用此端口，可导致拒绝服务"
+    },
+    "1521": {
+      "service": "Oracle-DB",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Oracle数据库",
+      "hazard": "若暴露在外网，可能被利用TNS漏洞或弱口令攻击"
+    },
+    "1723": {
+      "service": "PPTP",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "PPTP VPN",
+      "hazard": "MS-CHAPv2已被破解，不建议使用"
+    },
+    "1900": {
+      "service": "SSDP",
+      "protocol": "udp",
+      "risk": "warning",
+      "description": "简单服务发现协议",
+      "hazard": "可被用于SSDP放大DDoS攻击"
+    },
+    "2049": {
+      "service": "NFS",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "网络文件系统",
+      "hazard": "配置不当可未授权访问文件系统，泄露敏感数据"
+    },
+    "2082": {
+      "service": "cPanel",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "cPanel管理面板",
+      "hazard": "暴露管理面板可被暴力破解"
+    },
+    "2083": {
+      "service": "cPanel-SSL",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "cPanel加密管理",
+      "hazard": ""
+    },
+    "2375": {
+      "service": "Docker",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Docker API(未加密)",
+      "hazard": "未授权Docker API可导致宿主机完全控制，容器逃逸"
+    },
+    "2376": {
+      "service": "Docker-TLS",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Docker API(TLS)",
+      "hazard": "需确保证书配置正确"
+    },
+    "2425": {
+      "service": "Feishu-Book",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "飞秋/飞鸽传书",
+      "hazard": "可能被用于局域网消息欺骗"
+    },
+    "3000": {
+      "service": "Node-App",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Node.js应用/Grantfa",
+      "hazard": "开发端口暴露可能泄露调试信息"
+    },
+    "3128": {
+      "service": "Squid",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Squid代理",
+      "hazard": "开放代理可被滥用"
+    },
+    "3306": {
+      "service": "MySQL",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "MySQL数据库",
+      "hazard": "若使用弱口令(root/空密码)，可被完全控制数据库，进而获取系统权限"
+    },
+    "3389": {
+      "service": "RDP",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Windows远程桌面",
+      "hazard": "暴力破解主要目标，BlueKeep(CVE-2019-0708)可远程代码执行，应限制访问IP"
+    },
+    "4369": {
+      "service": "EPMD",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Erlang端口映射",
+      "hazard": "可被用于获取Erlang节点信息并尝试连接"
+    },
+    "4848": {
+      "service": "GlassFish",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "GlassFish管理控制台",
+      "hazard": "默认弱口令(admin/adminadmin)"
+    },
+    "5000": {
+      "service": "UPnP",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "UPnP服务/Flask开发",
+      "hazard": "可能被用于端口映射攻击或暴露开发调试信息"
+    },
+    "5432": {
+      "service": "PostgreSQL",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "PostgreSQL数据库",
+      "hazard": "若暴露且认证配置不当，可被利用执行系统命令"
+    },
+    "5601": {
+      "service": "Kibana",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Kibana可视化",
+      "hazard": "未授权访问可泄露敏感日志数据"
+    },
+    "5900": {
+      "service": "VNC",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "VNC远程桌面",
+      "hazard": "若使用弱密码可被暴力破解，部分版本存在认证绕过漏洞"
+    },
+    "5901": {
+      "service": "VNC-1",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "VNC远程桌面(:1)",
+      "hazard": "同VNC，弱密码可被暴力破解"
+    },
+    "5984": {
+      "service": "CouchDB",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "CouchDB",
+      "hazard": "CVE-2017-12635可提权，CVE-2017-12636可执行任意命令"
+    },
+    "5985": {
+      "service": "WinRM-HTTP",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Windows远程管理(HTTP)",
+      "hazard": "可被用于PowerShell远程执行，暴力破解目标"
+    },
+    "5986": {
+      "service": "WinRM-HTTPS",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Windows远程管理(HTTPS)",
+      "hazard": "需确保认证配置正确"
+    },
+    "6379": {
+      "service": "Redis",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Redis数据库",
+      "hazard": "默认无密码，可写入SSH公钥或计划任务获取服务器权限，极高风险"
+    },
+    "6443": {
+      "service": "K8s-API",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Kubernetes API",
+      "hazard": "未授权API可控制整个集群"
+    },
+    "6660": {
+      "service": "IRC",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "IRC服务",
+      "hazard": "常被僵尸网络用作C2控制通道"
+    },
+    "6667": {
+      "service": "IRC",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "IRC服务",
+      "hazard": "常被僵尸网络用作C2控制通道"
+    },
+    "7001": {
+      "service": "WebLogic",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "WebLogic管理",
+      "hazard": "多起反序列化漏洞(CVE-2018-2628等)，可远程执行代码"
+    },
+    "7002": {
+      "service": "WebLogic-SSL",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "WebLogic加密管理",
+      "hazard": "同WebLogic，存在反序列化漏洞风险"
+    },
+    "7077": {
+      "service": "WebLogic-SSR",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "WebLogic服务",
+      "hazard": "可能存在已知漏洞"
+    },
+    "8000": {
+      "service": "Web-Alt",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "替代Web端口",
+      "hazard": "可能是开发环境或管理后台"
+    },
+    "8080": {
+      "service": "HTTP-Proxy",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "HTTP代理/替代Web端口",
+      "hazard": "可能是管理后台或开发服务，暴露可能被利用"
+    },
+    "8081": {
+      "service": "Web-Alt",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "替代Web端口",
+      "hazard": "可能是管理后台"
+    },
+    "8086": {
+      "service": "InfluxDB",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "InfluxDB",
+      "hazard": "旧版本默认无认证，可未授权读写数据"
+    },
+    "8088": {
+      "service": "Hadoop",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Hadoop NameNode",
+      "hazard": "未授权HDFS管理界面可读取/删除任意文件"
+    },
+    "8443": {
+      "service": "HTTPS-Alt",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "替代HTTPS端口",
+      "hazard": "可能是管理后台"
+    },
+    "8500": {
+      "service": "Consul",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Consul管理界面",
+      "hazard": "默认无认证，可查看/修改服务配置"
+    },
+    "8649": {
+      "service": "Ganglia",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Ganglia监控",
+      "hazard": "可能泄露集群信息"
+    },
+    "8888": {
+      "service": "Web-Alt",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "替代Web端口/Jupyter",
+      "hazard": "Jupyter默认无密码可执行任意Python代码"
+    },
+    "9000": {
+      "service": "PHP-FPM",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "PHP-FPM/Portainer",
+      "hazard": "若直接暴露可利用fastcgi协议执行任意PHP代码"
+    },
+    "9001": {
+      "service": "Tor",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Tor/ORPort",
+      "hazard": "Tor出口节点可能被滥用"
+    },
+    "9042": {
+      "service": "Cassandra",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Cassandra CQL",
+      "hazard": "默认无认证，可读写数据库"
+    },
+    "9090": {
+      "service": "Prometheus",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Prometheus/WebLogic",
+      "hazard": "可能泄露监控指标数据"
+    },
+    "9100": {
+      "service": "JetDirect",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "打印机服务",
+      "hazard": "可被利用发送恶意打印任务或PJL命令注入"
+    },
+    "9200": {
+      "service": "Elasticsearch",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Elasticsearch HTTP",
+      "hazard": "默认无认证，可读取/修改/删除索引数据，泄露敏感信息"
+    },
+    "9300": {
+      "service": "Elasticsearch",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Elasticsearch Transport",
+      "hazard": "可被利用进行节点欺骗攻击"
+    },
+    "9418": {
+      "service": "Git",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Git协议",
+      "hazard": "可能泄露仓库源代码"
+    },
+    "10000": {
+      "service": "Webmin",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Webmin管理面板",
+      "hazard": "多起漏洞可远程执行代码"
+    },
+    "11211": {
+      "service": "Memcached",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Memcached",
+      "hazard": "默认无认证，可被用于放大DDoS攻击(5万倍放大)，可泄露缓存数据"
+    },
+    "15672": {
+      "service": "RabbitMQ",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "RabbitMQ管理",
+      "hazard": "默认弱口令(guest/guest)"
+    },
+    "18080": {
+      "service": "Web-Alt",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "替代Web端口",
+      "hazard": "可能是管理后台"
+    },
+    "27017": {
+      "service": "MongoDB",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "MongoDB",
+      "hazard": "默认无认证，可未授权读写数据库，大量数据泄露事件源头"
+    },
+    "27018": {
+      "service": "MongoDB",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "MongoDB(旧)",
+      "hazard": "同MongoDB，默认无认证"
+    },
+    "28017": {
+      "service": "MongoDB-Web",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "MongoDB Web界面",
+      "hazard": "泄露数据库信息"
+    },
+    "50070": {
+      "service": "Hadoop-NameNode",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "Hadoop管理",
+      "hazard": "未授权可浏览和下载HDFS任意文件"
+    },
+    "50090": {
+      "service": "Hadoop-Tracker",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "Hadoop JobTracker",
+      "hazard": "可能泄露集群任务信息"
+    },
+    "50000": {
+      "service": "SAP",
+      "protocol": "tcp",
+      "risk": "danger",
+      "description": "SAP管理",
+      "hazard": "多起已知漏洞可远程执行代码"
+    },
+    "60000": {
+      "service": "Web-Alt",
+      "protocol": "tcp",
+      "risk": "warning",
+      "description": "替代Web端口",
+      "hazard": "未知服务，需人工确认"
+    },
+    "49152": {
+      "service": "Dynamic-RPC",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "Windows动态RPC端口",
+      "hazard": "系统正常分配端口"
+    },
+    "49153": {
+      "service": "Dynamic-RPC",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "Windows动态RPC端口",
+      "hazard": "系统正常分配端口"
+    },
+    "49154": {
+      "service": "Dynamic-RPC",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "Windows动态RPC端口",
+      "hazard": "系统正常分配端口"
+    },
+    "49155": {
+      "service": "Dynamic-RPC",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "Windows动态RPC端口",
+      "hazard": "系统正常分配端口"
+    },
+    "49156": {
+      "service": "Dynamic-RPC",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "Windows动态RPC端口",
+      "hazard": "系统正常分配端口"
+    },
+    "49157": {
+      "service": "Dynamic-RPC",
+      "protocol": "tcp",
+      "risk": "safe",
+      "description": "Windows动态RPC端口",
+      "hazard": "系统正常分配端口"
+    }
+  },
+  "risk_levels": {
+    "safe": {
+      "label": "正常",
+      "color": "#27ae60",
+      "priority": 0
+    },
+    "warning": {
+      "label": "警告",
+      "color": "#f39c12",
+      "priority": 1
+    },
+    "danger": {
+      "label": "危险",
+      "color": "#e74c3c",
+      "priority": 2
+    },
+    "unknown": {
+      "label": "未知",
+      "color": "#95a5a6",
+      "priority": 3
+    }
+  }
+}
