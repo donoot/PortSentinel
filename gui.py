@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import (
     QGridLayout, QLabel, QLineEdit, QSpinBox, QDoubleSpinBox,
     QPushButton, QTableWidget, QTableWidgetItem, QTabWidget,
     QProgressBar, QHeaderView, QMessageBox, QAction, QFileDialog,
+    QInputDialog, QDialog,
 )
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QColor, QFont
